@@ -423,5 +423,3 @@ Essa solução atende ao problema do cliente porque oferece:
 - cálculo do saldo consolidado diário;
 - arquitetura resiliente para picos e falhas;
 - execução local simples em .NET, PostgreSQL e RabbitMQ.
-
-Se quiser, a próxima etapa pode ser a implementação completa do projeto em código, com os arquivos prontos para copiar e rodar.
