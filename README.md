@@ -170,59 +170,6 @@ No worker, configure a mesma fila e as credenciais do RabbitMQ:
 
 ---
 
-## Criação da solução e dos projetos
-
-No terminal, execute os passos abaixo:
-
-```bash
-mkdir FluxoCaixaApp
-cd FluxoCaixaApp
-
-dotnet new sln -n FluxoCaixaApp
-
-dotnet new webapi -n FluxoCaixaApp.Api -f net8.0
-dotnet new console -n FluxoCaixaApp.Worker -f net8.0
-dotnet new xunit -n FluxoCaixaApp.Tests -f net8.0
-
-dotnet sln FluxoCaixaApp.sln add \
-  FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj \
-  FluxoCaixaApp.Worker/FluxoCaixaApp.Worker.csproj \
-  FluxoCaixaApp.Tests/FluxoCaixaApp.Tests.csproj
-```
-
-Em seguida, adicione as dependências:
-
-```bash
-dotnet add FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj package Microsoft.EntityFrameworkCore
-dotnet add FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj package Microsoft.EntityFrameworkCore.Design
-dotnet add FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj package Npgsql.EntityFrameworkCore.PostgreSQL
-dotnet add FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj package RabbitMQ.Client
-
-dotnet add FluxoCaixaApp.Worker/FluxoCaixaApp.Worker.csproj package RabbitMQ.Client
-dotnet add FluxoCaixaApp.Worker/FluxoCaixaApp.Worker.csproj package Microsoft.Extensions.Hosting
-
-dotnet add FluxoCaixaApp.Tests/FluxoCaixaApp.Tests.csproj reference FluxoCaixaApp.Api/FluxoCaixaApp.Api.csproj
-```
-
----
-
-## Criação das migrações e banco
-
-Após a criação dos modelos e do DbContext, rode:
-
-```bash
-dotnet ef migrations add InitialCreate --project FluxoCaixaApp.Api --startup-project FluxoCaixaApp.Api
-dotnet ef database update --project FluxoCaixaApp.Api --startup-project FluxoCaixaApp.Api
-```
-
-Se o comando `dotnet ef` não for encontrado, instale a ferramenta globalmente:
-
-```bash
-dotnet tool install --global dotnet-ef
-```
-
----
-
 ## Como rodar a aplicação localmente
 
 ### 1) Restaurar dependências
@@ -397,21 +344,6 @@ Como evolução futura, recomenda-se:
 - migrar para solução de mensageria mais robusta, como Azure Service Bus.
 
 > O Docker foi mantido como possibilidade de melhoria futura para não bloquear a execução local simples da aplicação.
-
----
-
-## Publicando no GitHub
-
-Depois que tudo estiver funcionando localmente, pode publicar no GitHub com os comandos:
-
-```bash
-git init
-git add .
-git commit -m "Versão inicial do Fluxo de Caixa"
-git branch -M main
-git remote add origin <URL_DO_REPOSITORIO>
-git push -u origin main
-```
 
 ---
 
